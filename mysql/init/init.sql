@@ -3,11 +3,12 @@ use booking_system;
 
 create table if not exists users (
    id int auto_increment primary key,
-   username varchar(255) not null unique,
+   username varchar(255) not null unique, 
+  -- username is indexed for faster lookups
    password_hash varchar(255) not null,
    created_at timestamp default current_timestamp
 );
-create index idx_username on users(username);
+-- create index idx_username on users(username);
 
 
 create table if not exists user_profile (
@@ -20,7 +21,7 @@ create table if not exists user_profile (
    created_at timestamp default current_timestamp,
    foreign key (user_id) references users(id) on delete cascade
 );
-create index idx_email on user_profile(email);
+-- create index idx_email on user_profile(email);
 
 
 create table if not exists roles (
@@ -28,7 +29,7 @@ create table if not exists roles (
    role_name varchar(50) not null unique,
    created_at timestamp default current_timestamp
 );
-create index idx_role_name on roles(role_name);
+-- create index idx_role_name on roles(role_name);
 
 
 create table if not exists user_roles (
@@ -39,7 +40,6 @@ create table if not exists user_roles (
    foreign key (user_id) references users(id) on delete cascade,
    foreign key (role_id) references roles(id) on delete cascade
 );
-create index idx_user_id on user_roles(user_id);
 
 
 create table if not exists permissions (
@@ -47,7 +47,7 @@ create table if not exists permissions (
    permission_name varchar(50) not null unique,
    created_at timestamp default current_timestamp
 );
-create index idx_permission_name on permissions(permission_name);
+-- create index idx_permission_name on permissions(permission_name);
 
 
 create table if not exists role_permissions (
@@ -58,4 +58,4 @@ create table if not exists role_permissions (
    foreign key (role_id) references roles(id) on delete cascade,
    foreign key (permission_id) references permissions(id) on delete cascade
 );
-create index idx_role_id on role_permissions(role_id);
+-- create index idx_role_id on role_permissions(role_id);
