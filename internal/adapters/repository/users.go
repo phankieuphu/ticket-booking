@@ -14,17 +14,17 @@ type AccountRepository struct {
 }
 
 // Create implements ports.AccountRepository.
-func (a AccountRepository) Create(ctx context.Context, account entity.Account) {
+func (a AccountRepository) Create(ctx context.Context, account entity.User) {
 	models := a.toModels(account)
 	a.db.Save(models)
 	panic("unimplemented")
 }
 
-func (a AccountRepository) toModels(account entity.Account) models.Account {
+func (a AccountRepository) toModels(account entity.User) models.User {
 	panic("unimplemented")
 }
 
-func (a AccountRepository) toDomain(model models.Account) entity.Account {
+func (a AccountRepository) toDomain(model models.User) entity.User {
 	panic("unimplemented")
 }
 

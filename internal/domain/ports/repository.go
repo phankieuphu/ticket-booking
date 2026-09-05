@@ -6,5 +6,9 @@ import (
 )
 
 type AccountRepository interface {
-	Create(ctx context.Context, account entity.Account)
+	Create(ctx context.Context, account entity.User)
+}
+
+type RoleRepository interface {
+	GetRoleByID(ctx context.Context, id int) entity.Role
 }
