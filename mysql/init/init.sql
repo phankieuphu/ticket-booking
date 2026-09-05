@@ -45,9 +45,9 @@ create table if not exists user_roles (
 create table if not exists permissions (
    id int auto_increment primary key,
    permission_name varchar(50) not null unique,
-   created_at timestamp default current_timestamp
+   created_at timestamp default current_timestamp,
    resource varchar(255) not null,
-   action varchar(50) not null, // enum
+   action varchar(50) not null, -- enum
    description varchar(255) null
 );
 -- create index idx_permission_name on permissions(permission_name);
