@@ -7,7 +7,13 @@ import (
 )
 
 type AccountService interface {
-	Save(context.Context, entity.Account) error
+	Save(context.Context, entity.User) error
+}
+
+type RoleService interface {
+	Save(context.Context, entity.CreateRole) error
+	Update(context.Context, entity.UpdateRole) error
+	Delete(context.Context, int) error
 }
 
 type TicketService interface {

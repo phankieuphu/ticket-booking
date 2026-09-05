@@ -13,7 +13,7 @@ type AccountService struct {
 }
 
 // Save implements ports.AccountService.
-func (e *AccountService) Save(ctx context.Context, entity entity.Account) error {
+func (e *AccountService) Save(ctx context.Context, entity entity.User) error {
 	// Handle business here:
 
 	e.repository.Create(ctx, entity)

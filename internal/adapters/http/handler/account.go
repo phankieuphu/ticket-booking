@@ -21,7 +21,7 @@ func (h *AccountHandler) RegisterRoutes(r *gin.RouterGroup) {
 }
 
 func (h *AccountHandler) CreateAccount(c *gin.Context) {
-	var acc entity.Account
+	var acc entity.User
 	if err := c.ShouldBindJSON(&acc); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
