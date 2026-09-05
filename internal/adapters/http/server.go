@@ -16,12 +16,12 @@ type Server struct {
 	engine     *gin.Engine
 }
 
-func NewServer(cfg config.API, accountService ports.AccountService) *Server {
+func NewServer(cfg config.API, userService ports.UserService) *Server {
 	engine := gin.New()
 	engine.Use(gin.Logger(), gin.Recovery())
 
 	v1 := engine.Group("/api/v1")
-	handler.NewAccountHandler(accountService).RegisterRoutes(v1)
+	handler.NewUserHandler(userService).RegisterRoutes(v1)
 
 	return &Server{
 		engine: engine,

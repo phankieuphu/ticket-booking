@@ -13,12 +13,12 @@ import (
 
 type AccountConsumer struct {
 	cfg                 *internal_config.Config
-	entryAccountService ports.AccountService
+	entryAccountService ports.UserService
 	queueURL            string
 	provider            QueueProvider
 }
 
-func NewAccountConsumer(ctx context.Context, provider QueueProvider, cfg *internal_config.Config, entryAccountService ports.AccountService, queueURL string) (ports.IConsumer, error) {
+func NewAccountConsumer(ctx context.Context, provider QueueProvider, cfg *internal_config.Config, entryAccountService ports.UserService, queueURL string) (ports.IConsumer, error) {
 	return &AccountConsumer{
 		cfg:                 cfg,
 		entryAccountService: entryAccountService,
