@@ -8,29 +8,29 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AccountHandler struct {
-	service ports.AccountService
+type UserHandler struct {
+	service ports.UserService
 }
 
-func NewAccountHandler(service ports.AccountService) *AccountHandler {
-	return &AccountHandler{service: service}
+func NewUserHandler(service ports.UserService) *UserHandler {
+	return &UserHandler{service: service}
 }
 
-func (h *AccountHandler) RegisterRoutes(r *gin.RouterGroup) {
-	r.POST("/accounts", h.CreateAccount)
+func (h *UserHandler) RegisterRoutes(r *gin.RouterGroup) {
+	r.POST("/users", h.CreateUser)
 }
 
-func (h *AccountHandler) CreateAccount(c *gin.Context) {
-	var acc entity.User
-	if err := c.ShouldBindJSON(&acc); err != nil {
+func (h *UserHandler) CreateUser(c *gin.Context) {
+	var user entity.User
+	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := h.service.Save(c.Request.Context(), acc); err != nil {
+	if err := h.service.Save(c.Request.Context(), user); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, acc)
+	c.JSON(http.StatusCreated, user)
 }

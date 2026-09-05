@@ -7,13 +7,14 @@ import (
 	"context"
 )
 
-type AccountService struct {
-	config     config.Config
-	repository ports.AccountRepository
+type UserService struct {
+	config      config.Config
+	repository  ports.UserRepository
+	roleService ports.RoleService
 }
 
-// Save implements ports.AccountService.
-func (e *AccountService) Save(ctx context.Context, entity entity.User) error {
+// Save implements ports.UserService		.
+func (e *UserService) Save(ctx context.Context, entity entity.User) error {
 	// Handle business here:
 
 	e.repository.Create(ctx, entity)
@@ -21,9 +22,10 @@ func (e *AccountService) Save(ctx context.Context, entity entity.User) error {
 	return nil
 }
 
-func NewAccountService(cfg config.Config, repository ports.AccountRepository) ports.AccountService {
-	return &AccountService{
-		repository: repository,
-		config:     cfg,
+func NewUserService(cfg config.Config, repository ports.UserRepository, roleService ports.RoleService) ports.UserService {
+	return &UserService{
+		repository:  repository,
+		config:      cfg,
+		roleService: roleService,
 	}
 }

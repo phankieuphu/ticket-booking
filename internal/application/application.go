@@ -30,8 +30,13 @@ func AccountApplication(ctx context.Context) {
 	}
 
 	// repository & service
-	entryAccountRepository := repository.NewAccountRepository(database)
-	entryAccountService := services.NewAccountService(*cfg, entryAccountRepository)
+	permissionRepository := repository.NewPermissionRepository(database)
+	roleRepository := repository.NewRoleRepository(database)
+	userRepository := repository.NewUserRepository(database)
+
+	permissionService := services.NewPermissionService(*cfg, permissionRepository)
+	roleService := services.NewRoleService(*cfg, roleRepository, permissionService)
+	userService := services.NewUserService(*cfg, userRepository, roleService)
 
 	// SQS consumer
 	queueClient, err := consumer.NewSQSClient(*cfg, ctx)
@@ -42,7 +47,7 @@ func AccountApplication(ctx context.Context) {
 	if err != nil {
 		log.Fatalf("failed to init queue provider: %v", err)
 	}
-	accountConsumer, err := consumer.NewAccountConsumer(ctx, queueProvider, cfg, entryAccountService, cfg.SqsTopic.Account)
+	accountConsumer, err := consumer.NewAccountConsumer(ctx, queueProvider, cfg, userService, cfg.SqsTopic.Account)
 	if err != nil {
 		log.Fatalf("failed to init account consumer: %v", err)
 	}
@@ -72,7 +77,7 @@ func AccountApplication(ctx context.Context) {
 	defer kafkaConsumer.Close()
 
 	// HTTP server (gin)
-	httpServer := ginhttp.NewServer(cfg.API, entryAccountService)
+	httpServer := ginhttp.NewServer(cfg.API, userService)
 
 	log.Println("Account Application Started")
 

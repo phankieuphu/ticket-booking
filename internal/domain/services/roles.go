@@ -8,7 +8,9 @@ import (
 )
 
 type RoleService struct {
-	config config.Config
+	config            config.Config
+	roleRepository    ports.RoleRepository
+	permissionService ports.PermissionService
 }
 
 // Delete implements [ports.RoleService].
@@ -26,8 +28,10 @@ func (r *RoleService) Update(context.Context, entity.UpdateRole) error {
 	panic("unimplemented")
 }
 
-func NewRoleService(config config.Config) ports.RoleService {
+func NewRoleService(config config.Config, repository ports.RoleRepository, permissionService ports.PermissionService) ports.RoleService {
 	return &RoleService{
-		config: config,
+		config:            config,
+		roleRepository:    repository,
+		permissionService: permissionService,
 	}
 }

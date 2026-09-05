@@ -9,27 +9,52 @@ import (
 	"gorm.io/gorm"
 )
 
-type AccountRepository struct {
+type UserRepository struct {
 	db *gorm.DB
 }
 
-// Create implements ports.AccountRepository.
-func (a AccountRepository) Create(ctx context.Context, account entity.User) {
-	models := a.toModels(account)
-	a.db.Save(models)
+// Create implements [ports.UserRepository].
+func (a UserRepository) Create(ctx context.Context, user entity.User) error {
 	panic("unimplemented")
 }
 
-func (a AccountRepository) toModels(account entity.User) models.User {
+// Delete implements [ports.UserRepository].
+func (a UserRepository) Delete(ctx context.Context, userID int) error {
 	panic("unimplemented")
 }
 
-func (a AccountRepository) toDomain(model models.User) entity.User {
+// GetByEmail implements [ports.UserRepository].
+func (a UserRepository) GetByEmail(ctx context.Context, email string) (entity.User, error) {
 	panic("unimplemented")
 }
 
-func NewAccountRepository(db *gorm.DB) ports.AccountRepository {
-	return AccountRepository{
+// GetByID implements [ports.UserRepository].
+func (a UserRepository) GetByID(ctx context.Context, userID int) (entity.User, error) {
+	panic("unimplemented")
+}
+
+// Update implements [ports.UserRepository].
+func (a UserRepository) Update(ctx context.Context, user entity.User) error {
+	panic("unimplemented")
+}
+
+// // Create implements ports.UserRepository.
+// func (a UserRepository) Create(ctx context.Context, account entity.User) {
+// 	models := a.toModels(account)
+// 	a.db.Save(models)
+// 	panic("unimplemented")
+// }
+
+func (a UserRepository) toModels(account entity.User) models.User {
+	panic("unimplemented")
+}
+
+func (a UserRepository) toDomain(model models.User) entity.User {
+	panic("unimplemented")
+}
+
+func NewUserRepository(db *gorm.DB) ports.UserRepository {
+	return UserRepository{
 		db: db,
 	}
 }
