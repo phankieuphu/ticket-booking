@@ -5,8 +5,8 @@ insert into user_profile(user_id, email, first_name, last_name, phone, address) 
 insert into roles(role_name) values ('admin');
 insert into roles(role_name) values ('user');
 
-insert into permissions(permission_name) values ('read');
-insert into permissions(permission_name) values ('write');  
+insert into permissions(permission_name, resource, action, description) values ('read', 'booking', 'read', 'Read access to booking resources');
+insert into permissions(permission_name, resource, action, description) values ('write', 'booking', 'write', 'Write access to booking resources');
 
 insert into user_roles(user_id, role_id) values (1, 1);
 insert into role_permissions(role_id, permission_id) values (1, 1);
