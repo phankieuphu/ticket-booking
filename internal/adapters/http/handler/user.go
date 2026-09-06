@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"booking-service/internal/adapters/http/middleware"
 	"booking-service/internal/domain/entity"
 	"booking-service/internal/domain/ports"
 	"net/http"
@@ -17,7 +18,7 @@ func NewUserHandler(service ports.UserService) *UserHandler {
 }
 
 func (h *UserHandler) RegisterRoutes(r *gin.RouterGroup) {
-	r.POST("/users", h.CreateUser)
+	r.POST("/users", middleware.RequirePermission("user", "create"), h.CreateUser)
 }
 
 func (h *UserHandler) CreateUser(c *gin.Context) {

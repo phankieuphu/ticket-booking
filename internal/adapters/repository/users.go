@@ -5,6 +5,7 @@ import (
 	"booking-service/internal/domain/entity"
 	"booking-service/internal/domain/ports"
 	"context"
+	"strconv"
 
 	"gorm.io/gorm"
 )
@@ -15,42 +16,80 @@ type UserRepository struct {
 
 // Create implements [ports.UserRepository].
 func (a UserRepository) Create(ctx context.Context, user entity.User) error {
-	panic("unimplemented")
+	model := a.toModels(user)
+	return a.db.Create(&model).Error
 }
 
 // Delete implements [ports.UserRepository].
 func (a UserRepository) Delete(ctx context.Context, userID int) error {
-	panic("unimplemented")
+	return a.db.Delete(&models.User{}, userID).Error
 }
 
 // GetByEmail implements [ports.UserRepository].
 func (a UserRepository) GetByEmail(ctx context.Context, email string) (entity.User, error) {
-	panic("unimplemented")
+	var model models.User
+	err := a.db.Joins("Profile").Where(`"Profile".email = ?`, email).First(&model).Error
+	if err != nil {
+		return entity.User{}, err
+	}
+	return a.toDomain(model), nil
 }
 
 // GetByID implements [ports.UserRepository].
 func (a UserRepository) GetByID(ctx context.Context, userID int) (entity.User, error) {
-	panic("unimplemented")
+	var model models.User
+	err := a.db.First(&model, userID).Error
+	if err != nil {
+		return entity.User{}, err
+	}
+	return a.toDomain(model), nil
 }
 
 // Update implements [ports.UserRepository].
 func (a UserRepository) Update(ctx context.Context, user entity.User) error {
-	panic("unimplemented")
+	model := a.toModels(user)
+	return a.db.Save(&model).Error
 }
 
-// // Create implements ports.UserRepository.
-// func (a UserRepository) Create(ctx context.Context, account entity.User) {
-// 	models := a.toModels(account)
-// 	a.db.Save(models)
-// 	panic("unimplemented")
-// }
+// GetByUsername implements [ports.UserRepository].
+func (a UserRepository) GetByUsername(ctx context.Context, username string) (entity.User, error) {
+	var model models.User
+	err := a.db.Where("username = ?", username).First(&model).Error
+	if err != nil {
+		return entity.User{}, err
+	}
+	return a.toDomain(model), nil
+}
 
-func (a UserRepository) toModels(account entity.User) models.User {
-	panic("unimplemented")
+// GetUserRoleIDs implements [ports.UserRepository].
+func (a UserRepository) GetUserRoleIDs(ctx context.Context, userID int) ([]int, error) {
+	var userRoles []models.UserRole
+	if err := a.db.Where("user_id = ?", userID).Find(&userRoles).Error; err != nil {
+		return nil, err
+	}
+
+	roleIDs := make([]int, len(userRoles))
+	for i, ur := range userRoles {
+		roleIDs[i] = ur.RoleID
+	}
+	return roleIDs, nil
+}
+
+func (a UserRepository) toModels(user entity.User) models.User {
+	id, _ := strconv.Atoi(user.ID)
+	return models.User{
+		ID:           id,
+		Username:     user.Username,
+		PasswordHash: user.Password,
+	}
 }
 
 func (a UserRepository) toDomain(model models.User) entity.User {
-	panic("unimplemented")
+	return entity.User{
+		ID:       strconv.Itoa(model.ID),
+		Username: model.Username,
+		Password: model.PasswordHash,
+	}
 }
 
 func NewUserRepository(db *gorm.DB) ports.UserRepository {

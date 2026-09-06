@@ -12,6 +12,7 @@ type Config struct {
 	API
 	Kafka
 	Redis
+	JWT
 }
 
 type AWS struct {
@@ -59,6 +60,11 @@ func (r Redis) Addr() string {
 	return r.Host + ":" + r.Port
 }
 
+type JWT struct {
+	Secret    string
+	ExpiresIn time.Duration
+}
+
 func LoadConfig() *Config {
 	return &Config{
 		AWS: AWS{
@@ -94,6 +100,10 @@ func LoadConfig() *Config {
 			Port:     GetEnv("REDIS_PORT", "6379"),
 			Password: GetEnv("REDIS_PASSWORD", ""),
 			DB:       getEnvInt("REDIS_DB", 0),
+		},
+		JWT: JWT{
+			Secret:    GetEnv("JWT_SECRET", "change-me-in-production"),
+			ExpiresIn: time.Duration(getEnvInt("JWT_EXPIRES_IN_MIN", 60)) * time.Minute,
 		},
 	}
 }
