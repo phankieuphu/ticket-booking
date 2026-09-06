@@ -1,13 +1,13 @@
 package services
 
 import (
-	"booking-service/config"
-	"booking-service/internal/domain/entity"
-	"booking-service/internal/domain/ports"
-	"booking-service/pkg/jwtutil"
 	"context"
 	"errors"
 	"strconv"
+	"user-service/config"
+	"user-service/internal/domain/entity"
+	"user-service/internal/domain/ports"
+	"user-service/pkg/jwtutil"
 
 	"golang.org/x/crypto/bcrypt"
 )

@@ -1,9 +1,9 @@
 package kafka
 
 import (
-	"booking-service/config"
 	"context"
 	"log"
+	"user-service/config"
 
 	"github.com/IBM/sarama"
 )

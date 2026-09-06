@@ -1,13 +1,13 @@
 package http
 
 import (
-	"booking-service/config"
-	"booking-service/internal/adapters/http/handler"
-	"booking-service/internal/adapters/http/middleware"
-	"booking-service/internal/domain/ports"
 	"context"
 	"log"
 	"net/http"
+	"user-service/config"
+	"user-service/internal/adapters/http/handler"
+	"user-service/internal/adapters/http/middleware"
+	"user-service/internal/domain/ports"
 
 	"github.com/gin-gonic/gin"
 )

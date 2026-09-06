@@ -1,10 +1,10 @@
 package cache
 
 import (
-	"booking-service/config"
 	"context"
 	"log"
 	"time"
+	"user-service/config"
 
 	"github.com/redis/go-redis/v9"
 )
