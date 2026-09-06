@@ -19,6 +19,7 @@ func NewMySQLClient(cfg config.Config) (*gorm.DB, error) {
 		dbCfg.Port,
 		dbCfg.Database,
 	)
+	fmt.Println("Connecting to MySQL with DSN:", dsn)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		PrepareStmt: true, // important for performance
 	})

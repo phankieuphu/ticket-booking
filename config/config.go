@@ -67,7 +67,17 @@ func LoadConfig() *Config {
 				Account: GetEnv("ACCOUNTING_SQS", ""),
 			},
 		},
-		Database: Database{},
+		Database: Database{
+			Host:            GetEnv("DB_HOST", "localhost"),
+			Port:            getEnvInt("DB_PORT", 3306),
+			Username:        GetEnv("DB_USERNAME", "root"),
+			Password:        GetEnv("DB_PASSWORD", ""),
+			Database:        GetEnv("DB_DATABASE", "booking_system"),
+			MaxOpenConns:    getEnvInt("DB_MAX_OPEN_CONNS", 10),
+			MaxIdleConns:    getEnvInt("DB_MAX_IDLE_CONNS", 5),
+			ConnMaxLifetime: time.Duration(getEnvInt("DB_CONN_MAX_LIFETIME_SEC", 300)) * time.Second,
+			Driver:          GetEnv("DB_DRIVER", "mysql"),
+		},
 		API: API{
 			Port:         GetEnv("API_PORT", "8080"),
 			ReadTimeout:  time.Duration(getEnvInt("API_READ_TIMEOUT_SEC", 30)) * time.Second,
