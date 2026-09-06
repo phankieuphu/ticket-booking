@@ -1,9 +1,8 @@
 package ports
 
 import (
-	"booking-service/internal/application/command"
-	"booking-service/internal/domain/entity"
 	"context"
+	"user-service/internal/domain/entity"
 )
 
 type UserService interface {
@@ -24,8 +23,4 @@ type PermissionService interface {
 	Delete(context.Context, int) error
 	GetByID(ctx context.Context, id int) (entity.Permission, error)
 	GetByIDs(ctx context.Context, ids []int) ([]entity.Permission, error)
-}
-
-type TicketService interface {
-	Save(context.Context, command.CreateTicketCommand) error
 }

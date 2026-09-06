@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"booking-service/internal/adapters/database/models"
-	"booking-service/internal/domain/entity"
-	"booking-service/internal/domain/ports"
 	"context"
+	"user-service/internal/adapters/database/models"
+	"user-service/internal/domain/entity"
+	"user-service/internal/domain/ports"
 
 	"gorm.io/gorm"
 )

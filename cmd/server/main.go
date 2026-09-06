@@ -1,8 +1,8 @@
 package main
 
 import (
-	"booking-service/internal/application"
 	"context"
+	"user-service/internal/application"
 )
 
 func main() {

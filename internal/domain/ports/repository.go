@@ -1,8 +1,8 @@
 package ports
 
 import (
-	"booking-service/internal/domain/entity"
 	"context"
+	"user-service/internal/domain/entity"
 )
 
 type UserRepository interface {

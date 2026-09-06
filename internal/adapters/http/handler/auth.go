@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"booking-service/internal/adapters/http/dto"
-	"booking-service/internal/domain/ports"
 	"net/http"
+	"user-service/internal/adapters/http/dto"
+	"user-service/internal/domain/ports"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,16 +1,16 @@
 package application
 
 import (
-	"booking-service/config"
-	"booking-service/internal/adapters/cache"
-	database_provider "booking-service/internal/adapters/database/provider"
-	"booking-service/internal/adapters/kafka"
-	"booking-service/internal/adapters/repository"
-	"booking-service/internal/domain/services"
 	"context"
 	"log"
+	"user-service/config"
+	"user-service/internal/adapters/cache"
+	database_provider "user-service/internal/adapters/database/provider"
+	"user-service/internal/adapters/kafka"
+	"user-service/internal/adapters/repository"
+	"user-service/internal/domain/services"
 
-	ginhttp "booking-service/internal/adapters/http"
+	ginhttp "user-service/internal/adapters/http"
 
 	"github.com/joho/godotenv"
 )
@@ -78,7 +78,7 @@ func AccountApplication(ctx context.Context) {
 	// HTTP server (gin)
 	httpServer := ginhttp.NewServer(cfg.API, cfg.JWT, userService)
 
-	log.Println("Account Application Started")
+	log.Println("User Application Started")
 
 	// go accountConsumer.Start(ctx)
 	go kafkaConsumer.Start(ctx)

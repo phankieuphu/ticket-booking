@@ -1,4 +1,4 @@
-module booking-service
+module user-service
 
 go 1.26.4
 

@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"booking-service/internal/adapters/http/middleware"
-	"booking-service/internal/domain/entity"
-	"booking-service/internal/domain/ports"
 	"net/http"
+	"user-service/internal/adapters/http/middleware"
+	"user-service/internal/domain/entity"
+	"user-service/internal/domain/ports"
 
 	"github.com/gin-gonic/gin"
 )

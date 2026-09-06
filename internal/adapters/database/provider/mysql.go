@@ -1,9 +1,9 @@
 package database_provider
 
 import (
-	"booking-service/config"
 	"fmt"
 	"time"
+	"user-service/config"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

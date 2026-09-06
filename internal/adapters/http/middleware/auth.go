@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"booking-service/pkg/jwtutil"
 	"net/http"
 	"strings"
+	"user-service/pkg/jwtutil"
 
 	"github.com/gin-gonic/gin"
 )

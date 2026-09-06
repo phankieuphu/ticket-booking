@@ -1,11 +1,11 @@
 package services
 
 import (
-	"booking-service/config"
-	"booking-service/internal/domain/entity"
-	"booking-service/internal/domain/ports"
 	"context"
 	"fmt"
+	"user-service/config"
+	"user-service/internal/domain/entity"
+	"user-service/internal/domain/ports"
 )
 
 type PermissionService struct {

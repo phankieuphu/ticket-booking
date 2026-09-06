@@ -1,11 +1,11 @@
 package consumer
 
 import (
-	internal_config "booking-service/config"
-	"booking-service/internal/domain/ports"
 	"context"
 	"log"
 	"time"
+	internal_config "user-service/config"
+	"user-service/internal/domain/ports"
 
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
 	"github.com/aws/aws-sdk-go-v2/service/sqs/types"

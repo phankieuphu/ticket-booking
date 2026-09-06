@@ -93,7 +93,7 @@ func LoadConfig() *Config {
 			Brokers:       []string{GetEnv("KAFKA_BROKERS", "localhost:9092")},
 			ProducerTopic: GetEnv("KAFKA_PRODUCER_TOPIC", "account.events"),
 			ConsumerTopic: GetEnv("KAFKA_CONSUMER_TOPIC", "account.events"),
-			ConsumerGroup: GetEnv("KAFKA_CONSUMER_GROUP", "booking-service"),
+			ConsumerGroup: GetEnv("KAFKA_CONSUMER_GROUP", "user-service"),
 		},
 		Redis: Redis{
 			Host:     GetEnv("REDIS_HOST", "localhost"),
