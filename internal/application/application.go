@@ -3,7 +3,6 @@ package application
 import (
 	"booking-service/config"
 	"booking-service/internal/adapters/cache"
-	"booking-service/internal/adapters/consumer"
 	database_provider "booking-service/internal/adapters/database/provider"
 	"booking-service/internal/adapters/kafka"
 	"booking-service/internal/adapters/repository"
@@ -38,19 +37,19 @@ func AccountApplication(ctx context.Context) {
 	roleService := services.NewRoleService(*cfg, roleRepository, permissionService)
 	userService := services.NewUserService(*cfg, userRepository, roleService)
 
-	// SQS consumer
-	queueClient, err := consumer.NewSQSClient(*cfg, ctx)
-	if err != nil {
-		log.Fatalf("failed to init SQS client: %v", err)
-	}
-	queueProvider, err := consumer.NewQueueProvider(*queueClient)
-	if err != nil {
-		log.Fatalf("failed to init queue provider: %v", err)
-	}
-	accountConsumer, err := consumer.NewAccountConsumer(ctx, queueProvider, cfg, userService, cfg.SqsTopic.Account)
-	if err != nil {
-		log.Fatalf("failed to init account consumer: %v", err)
-	}
+	// // SQS consumer
+	// queueClient, err := consumer.NewSQSClient(*cfg, ctx)
+	// if err != nil {
+	// 	log.Fatalf("failed to init SQS client: %v", err)
+	// }
+	// queueProvider, err := consumer.NewQueueProvider(*queueClient)
+	// if err != nil {
+	// 	log.Fatalf("failed to init queue provider: %v", err)
+	// }
+	// accountConsumer, err := consumer.NewAccountConsumer(ctx, queueProvider, cfg, userService, cfg.SqsTopic.Account)
+	// if err != nil {
+	// 	log.Fatalf("failed to init account consumer: %v", err)
+	// }
 
 	// Redis cache
 	redisCache, err := cache.NewRedisCache(cfg.Redis)
@@ -81,7 +80,7 @@ func AccountApplication(ctx context.Context) {
 
 	log.Println("Account Application Started")
 
-	go accountConsumer.Start(ctx)
+	// go accountConsumer.Start(ctx)
 	go kafkaConsumer.Start(ctx)
 	httpServer.Start()
 }
