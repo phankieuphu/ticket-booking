@@ -76,7 +76,7 @@ func AccountApplication(ctx context.Context) {
 	defer kafkaConsumer.Close()
 
 	// HTTP server (gin)
-	httpServer := ginhttp.NewServer(cfg.API, userService)
+	httpServer := ginhttp.NewServer(cfg.API, cfg.JWT, userService)
 
 	log.Println("Account Application Started")
 

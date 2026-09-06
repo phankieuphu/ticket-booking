@@ -8,12 +8,14 @@ import (
 
 type UserService interface {
 	Save(context.Context, entity.User) error
+	Login(ctx context.Context, username, password string) (string, error)
 }
 
 type RoleService interface {
 	Save(context.Context, entity.CreateRole) error
 	Update(context.Context, entity.UpdateRole) error
 	Delete(context.Context, int) error
+	GetPermissionsByRoleIDs(ctx context.Context, roleIDs []int) ([]entity.Permission, error)
 }
 
 type PermissionService interface {
